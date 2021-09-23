@@ -1,0 +1,36 @@
+= java-pmap-inspector
+
+Inspect pmap -X output of a java process, requires Java 11, likely not 100% accurate.
+
+
+
+.Usage examples
+[source, shell]
+----
+$ pmap -X pid > pmap.txt; java JavaPmapInspector.java pmap.txt
+$ java JavaPmapInspector.java <(pmap -X pid)
+$ pmap -X pid | java JavaPmapInspector.java -
+----
+
+
+This project comes from https://gist.github.com/bric3/ce236e2c74860fd60f3aa542b5a800d0[a Java script] 
+I created mid-2020 to understand native memory consumption. The Java Native Memory Tracking
+wasn't enough to understand the growth of the **R**esident **S**et **S**ize of some
+JVM workloads. It uses the output of `pmap` (part of the procps package), this tool
+extract information from the OS `/proc` filesystem to get the system view of the process 
+memory mappings.
+
+Currently `JavaPmapInspector` script focus is to help diagnose the considerable amount of glibc 
+arenas.
+
+
+
+Contributions more than welcome.
+
+
+.TODO
+- Tests
+- Make an actual project structure
+- ...
+
+
